@@ -1,8 +1,10 @@
 from flask import Flask, request, Response, jsonify
 import requests
 import json
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)  # Allow all origins
 
 OLLAMA_SERVER_URL = "http://localhost:11434/api/generate"
 MODEL_NAME = "deepseek-r1:1.5b"
