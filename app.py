@@ -3,11 +3,14 @@ import requests
 import json
 from flask_cors import CORS
 import re
+import os
+from werkzeug.utils import secure_filename
+
 app = Flask(__name__)
 CORS(app)  # Allow all origins
 
 OLLAMA_SERVER_URL = "http://localhost:11434/api/generate"
-MODEL_NAME = "deepseek-r1:7b"
+MODEL_NAME = "gemma3:4b"
 
 # Prompt template for text summarization
 SUMMARY_PROMPT_TEMPLATE = """
@@ -192,7 +195,59 @@ def generate_labels():
         return Response(generate(), mimetype='text/plain')
     
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"error": str(e)}), 
+        
+
+# Configure upload settings
+UPLOAD_FOLDER = 'user_pdf'
+ALLOWED_EXTENSIONS = {'pdf'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # Limit file size to 16MB
+
+# Create upload directory if it doesn't exist
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+    print(f"Created directory: {UPLOAD_FOLDER}")
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/upload/pdf', methods=['POST'])
+def upload_pdf():
+    # Check if the request contains a file
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part in the request'}), 400
+    
+    file = request.files['file']
+    
+    # Check if file was actually selected
+    if file.filename == '':
+        return jsonify({'error': 'No file selected'}), 400
+    
+    # Check if the file is a PDF
+    if file and allowed_file(file.filename):
+        # Secure the filename to prevent path traversal attacks
+        filename = secure_filename(file.filename)
+        
+        # Ensure the upload directory exists
+        if not os.path.exists(app.config['UPLOAD_FOLDER']):
+            os.makedirs(app.config['UPLOAD_FOLDER'])
+            
+        # Save the file to the upload folder
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+        
+        return jsonify({
+            'message': 'File uploaded successfully',
+            'filename': filename,
+            'filepath': filepath,
+            'storage_directory': app.config['UPLOAD_FOLDER']
+        }), 201
+    else:
+        return jsonify({'error': 'File type not allowed. Please upload a PDF file'}), 400
+
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
