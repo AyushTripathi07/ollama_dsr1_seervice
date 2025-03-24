@@ -2,7 +2,7 @@ import requests
 import base64
 
 # Path to your image
-image_path = "/workspaces/ollama_dsr1_seervice/page_11-image_1.png"
+image_path = "/workspaces/ollama_dsr1_seervice/user_pdf/2307.06435v10.pdf_extracted/page_1-image_1.png"
 
 # Read and encode the image
 with open(image_path, "rb") as image_file:

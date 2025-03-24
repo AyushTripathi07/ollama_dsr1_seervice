@@ -1,0 +1,83 @@
+
+
+----- Page 1 -----
+
+A Comprehensive Overview of Large Language Models
+Humza Naveeda, Asad Ullah Khanb,⇤, Shi Qiuc,⇤, Muhammad Saqibd,e,⇤, Saeed Anwarf,g, Muhammad Usmanf,g, Naveed Akhtarh,j,
+Nick Barnesi, Ajmal Mianj
+aThe University of Sydney, Sydney, Australia
+bUniversity of Engineering and Technology (UET), Lahore, Pakistan
+cThe Chinese University of Hong Kong (CUHK), HKSAR, China
+dUniversity of Technology Sydney (UTS), Sydney, Australia
+eCommonwealth Scientiﬁc and Industrial Research Organisation (CSIRO), Sydney, Australia
+fKing Fahd University of Petroleum and Minerals (KFUPM), Dhahran, Saudi Arabia
+gSDAIA-KFUPM Joint Research Center for Artiﬁcial Intelligence (JRCAI), Dhahran, Saudi Arabia
+hThe University of Melbourne (UoM), Melbourne, Australia
+iAustralian National University (ANU), Canberra, Australia
+jThe University of Western Australia (UWA), Perth, Australia
+Abstract
+Large Language Models (LLMs) have recently demonstrated remarkable capabilities in natural language processing tasks and
+beyond. This success of LLMs has led to a large inﬂux of research contributions in this direction. These works encompass diverse
+topics such as architectural innovations, better training strategies, context length improvements, ﬁne-tuning, multi-modal LLMs,
+robotics, datasets, benchmarking, eﬃciency, and more. With the rapid development of techniques and regular breakthroughs in
+LLM research, it has become considerably challenging to perceive the bigger picture of the advances in this direction. Considering
+the rapidly emerging plethora of literature on LLMs, it is imperative that the research community is able to beneﬁt from a concise
+yet comprehensive overview of the recent developments in this ﬁeld. This article provides an overview of the literature on a broad
+range of LLM-related concepts. Our self-contained comprehensive overview of LLMs discusses relevant background concepts
+along with covering the advanced topics at the frontier of research in LLMs. This review article is intended to provide not only a
+systematic survey but also a quick, comprehensive reference for the researchers and practitioners to draw insights from extensive,
+informative summaries of the existing works to advance the LLM research.
+Keywords:
+Large Language Models, LLMs, chatGPT, Augmented LLMs, Multimodal LLMs, LLM training, LLM Benchmarking
+1. Introduction
+Language plays a fundamental role in facilitating commu-
+nication and self-expression for humans and their interaction
+with machines. The need for generalized models stems from
+the growing demand for machines to handle complex language
+tasks, including translation, summarization, information re-
+trieval, conversational interactions, etc. Recently, signiﬁcant
+breakthroughs have been witnessed in language models, pri-
+marily attributed to transformers [1], increased computational
+capabilities, and the availability of large-scale training data.
+These developments have brought about a revolutionary trans-
+formation by enabling the creation of LLMs that can approxi-
+mate human-level performance on various tasks [2, 3]. Large
+⇤Equal contribution
+Email addresses: humza_naveed@yahoo.com (Humza Naveed),
+aukhanee@gmail.com (Asad Ullah Khan), shiqiu@cse.cuhk.edu.hk (Shi
+Qiu), muhammad.saqib@data61.csiro.au (Muhammad Saqib),
+saeed.anwar@kfupm.edu.sa (Saeed Anwar),
+muhammad.usman@kfupm.edu.sa (Muhammad Usman),
+naveed.akhtar1@unimelb.edu.au (Naveed Akhtar),
+nick.barnes@anu.edu.au (Nick Barnes), ajmal.mian@uwa.edu.au
+(Ajmal Mian)
+Figure 1: The trend of papers released over the years containing keywords
+"Large Language Model", "Large Language Model + Fine-Tuning", and "Large
+Language Model + Alignment".
+Preprint submitted to Elsevier
+October 18, 2024
+arXiv:2307.06435v10  [cs.CL]  17 Oct 2024
+
+
+----- Page 2 -----
+
+Figure 3: A broader overview of LLMs, dividing LLMs into seven branches: 1. Pre-Training 2. Fine-Tuning 3. Eﬃcient 4. Inference 5. Evaluation 6. Applications
+7. Challenges
+multi-modal LLMs, augmented LLMs, LLMs-powered
+agents, datasets, evaluation, etc.
+We loosely follow the existing terminology to ensure a stan-
+dardized outlook of this research direction. For instance, fol-
+lowing [50], our survey discusses pre-trained LLMs with 10B
+parameters or more. We refer the readers interested in smaller
+pre-trained models to [51, 52, 53].
+The organization of this paper is as follows. Section 2 discusses
+the background of LLMs. Section 3 focuses on LLMs overview,
+architectures, training pipelines and strategies, ﬁne-tuning, and
+utilization in di↵erent domains. Section 4 highlights the conﬁg-
+uration and parameters that play a crucial role in the function-
+ing of these models. Summary and discussions are presented
+in section 3.8. The LLM training and evaluation, datasets, and
+benchmarks are discussed in section 5, followed by challenges
+and future directions, and conclusion in sections 7 and 8, re-
+spectively.
+3

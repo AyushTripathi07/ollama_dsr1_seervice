@@ -151,4 +151,3 @@ def ocr_pdf_page(pdf_file, page_num=0):
     except Exception as e:
         return f"OCR error: {str(e)}"
 
-extract_text_and_images("/workspaces/ollama_dsr1_seervice/user_pdf/2312.10997v5.pdf","/workspaces/ollama_dsr1_seervice/user_pdf")

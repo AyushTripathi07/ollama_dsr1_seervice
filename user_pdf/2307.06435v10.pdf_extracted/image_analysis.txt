@@ -1,0 +1,9 @@
+# Image Analysis Summary
+
+### Figure 1 (page_1-image_1.png)
+Failed to analyze image. Status code: 500
+
+
+### Figure 2 (page_2-image_1.png)
+Failed to analyze image. Status code: 500
+
